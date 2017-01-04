@@ -157,14 +157,21 @@ def fbcp(state):
           os.system("modprobe fbtft_device name=pitft rotate=0")# Change rotation
           os.system("adafruit-pitft-touch-cal -f -r 0")# Change rotation
     os.system('fbcp')
+    #os.system('pkill fbcp')
+    os.system('rmmod fb_ili9340')# Change rotation
+    os.system('rmmod fbtft_device')# Change rotation
+    os.system('modprobe fbtft_device name=pitft rotate=180')# Change rotation
+    os.system('adafruit-pitft-touch-cal -f -r 180')# Change rotation
+    fbcpon = False
+    initdis()
   return run
 fbcpmenu = Menu('FBCP',green,'rotation',yellow,(),passs)
 fbcpmenu.contents = (('90 degrees',orange,24,fbcp(1)),('180 degrees',blue,24,fbcp(2)),('270 degrees',green,24,fbcp(3)),('360 degrees',red,24,fbcp(4)))
 
 from Variables import *
 def varwrite():
-    os.system('echo "currentresolution = '+str(currentresolution)+'" > Variables.py')
-    os.system('echo "resolutions = []" >> Variables.py')
+    os.system('echo "currentresolution = '+str(currentresolution)+'\nresolutions = []" > Variables.py')
+    #os.system('echo "resolutions = []" >> Variables.py')
     for r in range(len(resolutions)):
         os.system('echo "resolutions.append('+str(resolutions[r])+')" >> Variables.py')
 class Resolution:
@@ -309,8 +316,7 @@ class Resolution:
 resol = Resolution()
 mainmenu = Menu('FBCPconfig',cyan,'Main Menu',green,(),passs)
 mainmenu.contents=(('FBCP',yellow,24,fbcpmenu.load),('Resolution Profiles',orange,24,resol.resolmenu.load))
-try:
-    while 1: mainmenu.load()
+try:mainmenu.load()
 finally:
   if fbcpon == True:
     os.system('pkill fbcp')
