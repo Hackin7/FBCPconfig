@@ -39,4 +39,8 @@ def exit():
 FBCPconf = ('FBCPconf', orange, 24, app, exit)
 programs.append(FBCPconf)" >> $Appdir
 echo 'Done installing FBCPconfig software for BlockComPi'
+<<<<<<< HEAD
 fi
+=======
+fi
+>>>>>>> 503a52866c7e2cccac234edea724fd0b0eae315b
