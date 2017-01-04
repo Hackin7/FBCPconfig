@@ -32,12 +32,10 @@ echo "def app():
 def exit():
   os.system('pkill fbcp')
   os.system('pkill -f FBCPconfig.py')
-  os.system('sleep 1')
   os.system('rmmod fb_ili9340')# Change rotation
   os.system('rmmod fbtft_device')# Change rotation
   os.system('modprobe fbtft_device name=pitft rotate=180')# Change rotation
   os.system('adafruit-pitft-touch-cal -f -r 180')# Change rotation
-  os.system('sleep 1')
 FBCPconf = ('FBCPconf', orange, 24, app, exit)
 programs.append(FBCPconf)" >> $Appdir
 echo 'Done installing FBCPconfig software for BlockComPi'
